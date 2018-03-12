@@ -4,15 +4,11 @@
 ### 
 **Histogram of Oriented Gradients (HOG)**
 
-
 #### 
 **1. HOG features extraction**
-
-
 ```
 Code : line 21 - 33 in vehicle_classifier.py
 ```
-
 
 To extract hog features of training samples, the idea is:
 
@@ -22,16 +18,9 @@ Secondly, call skimge.hog() to extract hog features in the image
 
 Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)`and `cells_per_block=(2, 2)`:
 
-
-
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P50.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P50.png "image_tooltip")
 
-
 Figure 1. Hog features
-
 
 #### 
 **2. Color space of HOG parameters choice**
@@ -164,23 +153,15 @@ Table 3
 
 #### 
 **3. Classifier training**
-
-
 ```
 Code: line 41 - 63 in vehicle_classifier.py
 ```
-
 
 **3.1 Data augmentation:**
 
 In order to improve the the classification accuracy on real data. I augmented the training dataset by adding more vehicle examples and non-vehicles examples from the screenshots and internet.
 
 To generate more examples, I use crop_image function (`line 11 - 19 in vehicle_classifier.py`) to crop the top-right, top-left, bottom-right and bottom-left parts of a car image and then resize them all to 64*64 png images.
-
-
-
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P51.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 
 ![alt_text](images/P51.png "image_tooltip")
 
@@ -191,38 +172,18 @@ Figure 2. screenshot car image
 <table>
   <tr>
    <td>
-
-<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P52.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P52.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P53.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P53.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
   </tr>
   <tr>
    <td>
-
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P54.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P54.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P55.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P55.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
   </tr>
 </table>
@@ -247,28 +208,18 @@ In the end, the classifier achieves 98.8% accuracy on test dataset.
 ### 
 **Sliding Window Search**
 
-
 #### 
 **1. Sliding window search. **
 
-
 ```
-
-
 #### Code : line 8 - 46 in vehicle_detection.py
 ```
-
 
 As sliding window search is a very expensive operation, I restrict the sliding window search region to the bottom left part of the image.
 
 As a result of perspective, the cars further away are smaller and those closerby are bigger, it doesn't make sense to slide small windows across the bottom of the image since the cars that appear there are too big to fit into the window. The same reasoning goes for the image area in the middle, big window won't help there as cars are too small to be recognized in a big window.
 
 Five different sized windows are used in my sliding window algorithm. As shown in the image, window sizes varies along with the perspective.
-
-
-
-<p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P56.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 
 ![alt_text](images/P56.png "image_tooltip")
 
@@ -406,17 +357,11 @@ Figure 4. All sliding windows
 #### 
 **2. Pipeline**
 
-
 ```
-
-
 #### Code : line 54 - 141 in vehicle_detection.py
 ```
 
-
 Ultimately I used YCrCb 3-channel HOG features as feature vector, which provided a nice result. The pipeline is:
-
-
 
 *   Detect cars with sliding window
 *   Locate heat areas with heatmap 
@@ -424,35 +369,15 @@ Ultimately I used YCrCb 3-channel HOG features as feature vector, which provided
 
 Here are some example images:
 
-
-
-<p id="gdcalert8" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P57.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert9">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P57.png "image_tooltip")
-
 
 Figure 5. Active sliding windows
 
-
-
-<p id="gdcalert9" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P58.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert10">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P58.png "image_tooltip")
-
-
 
 Figure 6.  Corresponding heatmap
 
-
-
-<p id="gdcalert10" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P59.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert11">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P59.png "image_tooltip")
-
-
 
 Figure 7. Resulting bounding box
 
@@ -472,168 +397,78 @@ Figure 7. Resulting bounding box
    <td>Test 1
    </td>
    <td>
-
-<p id="gdcalert11" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P510.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert12">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P510.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert12" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P511.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert13">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P511.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert13" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P512.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert14">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P512.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
   </tr>
   <tr>
    <td>Test 2
    </td>
    <td>
-
-<p id="gdcalert14" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P513.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert15">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P513.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert15" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P514.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert16">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P514.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert16" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P515.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert17">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P515.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
   </tr>
   <tr>
    <td>Test 3
    </td>
    <td>
-
-<p id="gdcalert17" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P516.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert18">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P516.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert18" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P517.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert19">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P517.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert19" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P518.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert20">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P518.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
   </tr>
   <tr>
    <td>Test 4
    </td>
    <td>
-
-<p id="gdcalert20" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P519.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert21">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P519.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert21" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P520.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert22">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P520.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert22" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P521.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert23">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P521.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
   </tr>
   <tr>
    <td>Test 5
    </td>
    <td>
-
-<p id="gdcalert23" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P522.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert24">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P522.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert24" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P523.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert25">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P523.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert25" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P524.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert26">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P524.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
   </tr>
   <tr>
    <td>Test 6
    </td>
    <td>
-
-<p id="gdcalert26" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P525.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert27">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P525.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert27" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P526.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert28">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P526.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
    <td>
-
-<p id="gdcalert28" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P527.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert29">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 <img src="images/P527.png" width="" alt="alt_text" title="image_tooltip">
-
    </td>
   </tr>
 </table>
@@ -653,17 +488,12 @@ My pipeline turns out to perform reasonably well on the entire project video, al
 
 Here's the link to my video:  [https://youtu.be/jKj8i51It5g](https://youtu.be/jKj8i51It5g)
 
-
 #### 
 **2. False positive and overlapping bounding box filtering**
 
-
 ```
-
-
 ####    Code : line 106 - 110 in vehicle_detection.py
 ```
-
 
 The idea is very intuitive, cars are not likely to be tall and thin like a pin. It's often the case that such thin and tall windows are the overlapping area of two close cars.
 
@@ -673,18 +503,13 @@ The windows with very small height or width, or with large ratio of height over 
 #### 
 **3. Bounding box stabilization**
 
-
 ```
-
-
 ####   Code : line 113 - 123 in vehicle_detection.py
 ```
-
 
 My bounding box stabilization technique doesn't work out well. :(
 
 My idea is simple, average the box size with the last frame:
-
 
 
 *   Calculate the center point of the car. (`Code : line 65 - 74 in vehicle_detection.py)`
@@ -695,13 +520,7 @@ Below is an illustration of how this algorithm works:
 
 Given boxes_in_last_frame = [], the output is like the following figure:
 
-
-
-<p id="gdcalert29" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P528.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert30">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P528.png "image_tooltip")
-
 
 Figure 8. Bounding box with no averaging
 
@@ -709,16 +528,9 @@ Given boxes_in_last_frame  = [(1042, 400, 210, 90), (814, 400, 160, 96)],
 
 the bounding boxes are averaged with the ones in the last frame.
 
-
-
-<p id="gdcalert30" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/P529.png). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert31">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/P529.png "image_tooltip")
 
-
 Figure 9. Bounding box with averaging
-
 
 ### 
 **Discussion**
